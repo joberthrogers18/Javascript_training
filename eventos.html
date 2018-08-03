@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+    </head>
+    <body>
+        
+        <h4 id="title">Meu botão</h4>
+        <button id="btn">Click</button>
+
+        <script>
+
+            /*console.log('Pagina carregando');
+
+            window.onload = function(){ //Know the HTML is load for complete
+                alert("pagina carregou")
+            }
+
+            alert("Pagina carregando")*/
+
+            var botao = document.getElementById("btn");
+            var title = document.getElementById("title");
+            botao.addEventListener('click', function(){ // add a event to click and receive a name for event and whats is goning on in second params
+                
+                title.innerHTML = "Você clicou no botão";
+            });
+
+        </script>
+
+    </body>
+</html>

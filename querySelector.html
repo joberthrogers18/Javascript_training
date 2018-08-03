@@ -1,0 +1,55 @@
+<DOCTYPE <!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Page Title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <div id="test1">1</div>
+        <div class="test2">2</div>
+        <p class="test3">teste3</p>
+
+        <div class="test">1</div>
+        <div class="test">2</div>
+        <div class="test">3</div>
+
+        <div id="pai">
+            <div class="filho">1</div>
+            <div class="filho">2</div>
+            <div class="filho">3</div>
+        </div>
+
+        <p>oi</p>
+        <p>ola</p>
+
+        <div id="nissan">
+
+        </div>
+
+
+        <script>
+            
+            console.log(
+                document.querySelector("#test1"), //id
+                document.querySelector(".test2"), //class
+                document.querySelector("p"), // tag
+                document.querySelectorAll(".test"), //acess all the classes test
+                document.getElementById("pai").querySelectorAll(".filho")[0] //caught the element of sons in father id 
+
+            )
+
+            var versa = document.createElement("p");
+            versa.innerHTML = "versa";
+
+            var sentra = document.createElement("p");
+            sentra.innerHTML = "sentra";
+
+            document.getElementById("nissan").appendChild(versa);
+            document.getElementById("nissan").appendChild(sentra);
+
+        </script>
+        
+    </body>
+</html>

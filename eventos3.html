@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Page Title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    </head>
+    <body>
+        
+        <select id="linguagens">
+            <option value="1">php</option>
+            <option value="2">Javascript</option>
+            <option value="3">java</option>
+            <option value="4">C#</option>
+        </select>
+
+        <script>
+            
+            var linguagens = document.getElementById("linguagens");
+
+            linguagens.addEventListener("change", function(){
+              var option = this.option;
+              var itemAtual = this.selectedIndex;
+                                                        //when we have a change like select we can use this event for listen and manipulate
+              console.log(option[itemAtual].text);
+
+              alert(this[this.selectedIndex].innerHTML)
+
+            })
+
+        </script>
+
+    </body>
+</html>

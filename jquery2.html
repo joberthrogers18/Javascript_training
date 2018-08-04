@@ -32,6 +32,26 @@
                 background-color: yellow;
                 color: #000;
             }
+
+            .container{
+                position: absolute;
+                background-color: black;
+                width: 400px;
+                height: 400px;
+                margin-left: 150px;
+                margin-top: 100px;
+                padding: 20px;
+            }
+
+            .item{
+                background-color: red;
+                width: 100px;
+                height: 100px;
+                margin-left: 20px;
+                margin-top: 20px;
+                display: inline-block;
+                
+            }
         </style>
     </head>
     <body>
@@ -70,7 +90,13 @@
 
         <div class="resultado"></div>
 
-        
+        <br/> <br/>
+
+        <h4>Position and offset</h4>
+
+        <div class="container">
+            <div class="item"></div>
+        </div>
 
         <script src="jquery.js"></script>
         <script>
@@ -109,6 +135,15 @@
 
                 resultado.text(data);
             })
+
+            //position and offset
+
+            var container = $("containe");
+            var item = $(".item");
+            var posicao = item.position(); // postion take the cordinate in relation the fathe and offset is from the screen
+            // var posicao = item.offset();
+
+            console.log(posicao.left, posicao.top)
 
         </script>
         

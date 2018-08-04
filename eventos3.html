@@ -6,6 +6,12 @@
         <title>Page Title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        <style>
+            .erro{
+                border:2px solid red;
+            }
+        </style>
+
     </head>
     <body>
         
@@ -30,6 +36,16 @@
 
         <input type="text" id="text2">
         <div id="result2" style="display:none">é o enter uhu</div>
+
+        <h4>Submit</h4>
+
+        <br/>
+
+        <form action="#" method="post">
+            <input type="text" name="name" value="jobs">
+            <input type="email" name="email" value="Jobs@gmail.com">
+            <button type="submit"> Enter</button>
+        </form>
 
         <script>
             
@@ -70,7 +86,7 @@
                       result.innerHTML = resultDefaultText;
               })
 
-              // Keypress ->
+              // Keypress -> diferent of keyup this action is on when any button is press at the first time
 
               var text2 = document.getElementById("text2");
               var result2 = document.getElementById("result2");
@@ -83,7 +99,31 @@
 
               })
 
+              //submit
 
+              var form = document.querySelector("form");
+              
+              form.addEventListener("submit", function(event){
+                event.preventDefault(); //deny the action http request, not refresh the page
+                var isvalid = true;
+
+                for(let i = 0; i < this.elements.length; i++){ // search all the elements
+                    var item = this.elements[i]; // take the element actual
+
+                    if(item.type !== "submit"){ // verify if it is not a button
+                        if(item.value == ""){ //if the value in field actual is empty we put the css erro
+                            item.classList.add("erro");
+                            isvalid = false;
+                        }
+                        else{ // if it is not we take of the erro css
+                            item.classList.remove("erro");
+                        }
+                    }
+                }
+              })
+
+              console.log(isvalid);
+            
 
         </script>
 

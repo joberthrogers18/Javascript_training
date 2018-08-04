@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Jquery Basico</title>
+
+    <style>
+        .body{
+            background-color: #efefef;
+        }
+
+        .box{
+            position: relative;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+        }
+    </style>
 </head>
 <body>
 
@@ -13,11 +27,25 @@
     <p id="p2"></p>
     <p data-aula="p3"></p>
 
+    <h4>Efeitos</h4>
+
+    <div class="box"></div>
+    <hr>
+
     <script src="jquery.js"></script>
     <script>
-        var p1 = $('.p1').remove(;
+        var p1 = $('.p1');
         
         console.log(p1);
+
+        //efects
+
+        var box = $(".box");
+        box.animate({
+            width: "200px",
+            height: "200px",
+            left: "500"
+        },1000) // pass the JSON with properies CSS and the duration of event in second params
     </script>
     
 </body>

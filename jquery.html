@@ -18,6 +18,13 @@
             height: 100px;
             background-color: pink;
         }
+        
+        button{
+            font-size: 2rem;
+            background-color: #000;
+            color: #fff;
+            padding: 1rem 2rem;
+        }
     </style>
 </head>
 <body>
@@ -32,6 +39,11 @@
     <div class="box"></div>
     <hr>
 
+    <h4>Events</h4>
+
+    <button id="next">Next</button>
+    <button id="prev">Prev</button>
+
     <script src="jquery.js"></script>
     <script>
         var p1 = $('.p1');
@@ -40,13 +52,36 @@
 
         //efects
 
-        var box = $(".box");
-        box.animate({
+        //var box = $(".box");
+        /*box.animate({
             width: "200px",
             height: "200px",
             left: "500"
         },1000) // pass the JSON with properies CSS and the duration of event in second params
-    </script>
+        */
+        //evets
+
+        var box = $(".box");
+        var next = $("#next");
+        var prev = $("#prev");
+
+        next.on("click",function(){
+            box.animate({
+            width: "200px",
+            height: "200px",
+            left: "800"
+            },1000)}) // pass the JSON with properies CSS and the duration of event in second params
+            
+        prev.on("click",function(){
+            box.animate({
+            width: "100px",
+            height: "100px",
+            left: "0"
+            },1000)
+        })
+    
+
+   </script>
     
 </body>
 </html>

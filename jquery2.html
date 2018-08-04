@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+
+        <style>
+            ul{
+                list-style: none;
+                padding:  0;
+                width: 100%;
+                height: 70px;
+                background-color: #000;
+                display: flex;
+                align-items: center;
+            }
+
+            li{
+                margin-left: 20px;
+                text-transform:  uppercase;
+            }
+
+            a{
+                color: #fff;
+                padding: 25px 20px;
+            }
+
+            a:hover,
+            a.active{
+                background-color: yellow;
+                color: #000;
+            }
+        </style>
+    </head>
+    <body>
+
+        <button>Click</button>
+        <div class="mensagem">Olá Brasil</div>
+
+        <br/><br/>
+
+        <h4>add and remove class</h4>
+
+        <br/>
+
+        <ul>
+            <li><a href="#" class="link active">Home</a></li>
+            <li><a href="#" class="link">Empresa</a></li>
+            <li><a href="#" class="link">Projetos</a></li>
+            <li><a href="#" class="link">Contato</a></li>
+        </ul>
+
+        <script src="jquery.js"></script>
+        <script>
+            
+            var button = $("button");
+            var mensagem = $(".mensagem");
+
+            button.on("click", function(){
+
+                // delay
+                mensagem.delay("slow").fadeOut();
+            })
+
+            //addClass and removeClass
+
+            var link = $(".link"); // capture all links class
+            
+            link.on("click", function(){
+
+                link.removeClass("active")
+                $(this).addClass("active"); // how i dont know in this links i press i use this with $
+
+            })
+
+        </script>
+        
+    </body>
+</html>

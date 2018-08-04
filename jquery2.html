@@ -52,6 +52,26 @@
             <li><a href="#" class="link">Contato</a></li>
         </ul>
 
+        <br><br>
+
+        <h4>Serialize</h4>
+
+        <form action="#">
+            <label for="cep">CEP</label>
+            <input type="text" name="cep" id="cep" placeholder="00000-000">
+
+            <label for="logradouro">Logradouro</label>
+            <input type="text" name="logradouro" id="logradouro" placeholder="Avenida exemplo">
+
+            <button>Submit</button>
+        </form>
+
+        <br> <br> <br>
+
+        <div class="resultado"></div>
+
+        
+
         <script src="jquery.js"></script>
         <script>
             
@@ -73,6 +93,21 @@
                 link.removeClass("active")
                 $(this).addClass("active"); // how i dont know in this links i press i use this with $
 
+            })
+
+            //serialize
+
+            var forms = $("form");
+            var resultado = $(".resultado");
+
+            forms.on("submit", function(event){
+                event.preventDefault();
+                
+                var data = $(this).serialize();
+
+                console.log(data);
+
+                resultado.text(data);
             })
 
         </script>

@@ -16,8 +16,15 @@
             <option value="4">C#</option>
         </select>
 
+        <br/><br/>
+
         <input type="text" id="nome">
         <input type="text" id="sobrenome">
+
+        <br/><br/>
+
+        <input type="text" id="search">
+        <div id="result">Nenhum resultado</div>
 
         <script>
             
@@ -33,13 +40,29 @@
 
             })
 
-            //blu event
+            //blu event -> when you out the input this action come
 
               var nome = document.getElementById("nome");
               var sobrenome = document.getElementById("sobrenome");
 
               nome.addEventListener("blur", function(){
                   sobrenome.value = this.value; //action when out of input html
+              })
+
+              //keyup -> when we stop typing this load
+
+              var text = document.getElementById("search");
+              var result = document.getElementById("result");
+              var resultDefaultText = "Nenhum resultado";
+
+              text.addEventListener("keyup", function(){
+
+                  var value = this.value;
+
+                  if(value != "")
+                    result.innerHTML = this.value;
+                  else
+                      result.innerHTML = resultDefaultText;
               })
 
         </script>

@@ -26,6 +26,11 @@
         <input type="text" id="search">
         <div id="result">Nenhum resultado</div>
 
+        <br/><br/>
+
+        <input type="text" id="text2">
+        <div id="result2" style="display:none">é o enter uhu</div>
+
         <script>
             
             var linguagens = document.getElementById("linguagens");
@@ -64,6 +69,21 @@
                   else
                       result.innerHTML = resultDefaultText;
               })
+
+              // Keypress ->
+
+              var text2 = document.getElementById("text2");
+              var result2 = document.getElementById("result2");
+              
+              const KEYENTER = 13;
+
+              text2.addEventListener("keypress", function(event){
+                  if(event.keyCode == KEYENTER)
+                    result2.style.display = "block";
+
+              })
+
+
 
         </script>
 

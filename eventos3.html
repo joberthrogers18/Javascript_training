@@ -16,6 +16,9 @@
             <option value="4">C#</option>
         </select>
 
+        <input type="text" id="nome">
+        <input type="text" id="sobrenome">
+
         <script>
             
             var linguagens = document.getElementById("linguagens");
@@ -29,6 +32,15 @@
               alert(this[this.selectedIndex].innerHTML)
 
             })
+
+            //blu event
+
+              var nome = document.getElementById("nome");
+              var sobrenome = document.getElementById("sobrenome");
+
+              nome.addEventListener("blur", function(){
+                  sobrenome.value = this.value; //action when out of input html
+              })
 
         </script>
 

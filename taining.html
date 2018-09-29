@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var random_number = Math.random();
+
+        //console.log(random_number)
+
+        function randomNumber(min, max){
+            return Math.floor(random_number * (max - min) + 1) + min;
+        }
+
+        //console.log(randomNumber(1,9));
+
+        // for in adn for of
+
+        let person = {fname:"Jobs", lname: "Rogers", arms: 2}; // object person
+
+        let arr = [3,5,7]; // array
+        arr.foo = 'hello';
+
+        let text = "";
+        for(let x in person){
+            text += person[x];
+            console.log(x);
+        };
+
+        console.log(text);
+
+        for(let i in arr){
+            console.log(i);
+        };
+
+        for(let i of arr){
+            console.log(i);
+        };
+
+        // Array iteration 8 methods
+
+            //forEach
+            [1,2,3].forEach(function(item, index){
+                console.log(item, index);
+            });
+
+            //map
+            const three = [1,2,3];
+
+            const doubled = three.map(function(item){ //map elements and aply something
+                return item * 2; // multiplica cada item para item
+            });
+            console.log(doubled);
+
+            //filter
+            const ints = [1,2,3];
+            const evens = ints.filter(function(item){ //filter elements
+                return item % 2 === 0;
+            });
+
+            console.log(evens);
+
+            //reduce 
+            const sum = [1,2,3].reduce(function(result, item){ //loops until final
+                return result + item;
+            },0);  // zero is because the result start with 0;
+            console.log(sum); 
+
+            const hasNegativeNumbers = [1,2,3,-1,4].some(function(item){ //return true if there is at least one number are < 0
+                return item < 0;    
+            });
+            console.log(hasNegativeNumbers);
+            //every
+            const hasPositiveNumbers = [1,2,3,4].every(function(item){ //return true if all the number are > 0
+                return item > 0;    
+            });
+            console.log(hasPositiveNumbers);
+            //find
+            const objects = [{id:'a'},{id:'b'},{id:'b'}]; // return the first object if it exist
+            const found = objects.find(function(item){
+                return item.id === 'b';
+            });
+            console.log(found);
+            //find index
+            const objects2 = [{id:'a'},{id:'b'},{id:'b'}]; // return index of the first object id if it exist
+            const foundIndex = objects2.findIndex(function(item){
+                return item.id === 'b';
+            });
+            console.log(foundIndex);
+            
+
+        // Objects 
+            var myCar = new Object();
+            myCar.make = "Ford";
+            myCar.model = "Mustang";
+            myCar.color;
+            console.log(myCar.make);
+            console.log(myCar.color);
+
+            myCar["year"] = 1969;
+            console.log(myCar["model"]);
+
+            function showProps(obj, objName){
+                var result = "";
+                for(var i in obj){
+                    // obj.hasOwnProperty() is used to filter out properties from object's prototype chain
+                    if(obj.hasOwnProperty(i)){
+                        result += objName + "." + i + " = " + obj[i] + "\n";
+                    }
+                }
+                return result;
+            }
+
+            console.log(showProps(myCar, "myCar"));
+            //Creation: object initialize
+            var myHonda = {color : "red", wheels: 4, engine:{cylinder: 4, size: 2.2}};
+
+            // Creation: construtor function
+            function Car(make, model, year){
+                this.make = make;
+                this.model = model;
+                this.year = year;
+            }
+
+            var mycar = new Car("Chevy", "Ferrari", 1995);
+            var another = new Car("Gol", "Volgsvag", 2001);
+            console.log(mycar.model);
+            //Create: Object.create
+
+            var Animal = {
+                type: "Invertebrate",
+                displayType: function(){
+                    console.log(this.type);
+                }
+            }
+
+            var animal1 = Object.create(Animal);
+            animal1.displayType();
+
+            var fish = Object.create(Animal);
+            fish.type = "Fish";
+            fish.displayType();
+
+            //Continue the Object part
+            //Using the objects for lookups
+            var alpha = {
+                1:"Z",
+                2:"Y",
+                3:"X",
+                4:"W"
+            };
+            console.log(alpha[2]);
+
+            //Remove object propeties
+            let dishes = {
+                plate:8,
+                cups: 10,
+                fork:28,
+                bowls:13
+            };
+            delete dishes.cups;
+            console.log(dishes);
+
+            //Testi object for propetir
+            console.log(dishes.hasOwnProperty('plate'));
+            console.log(dishes.hasOwnProperty('cups'));
+
+            // Acess and modify objects nested
+
+            var ourStorage = {
+                "desk" : {
+                    "drawer": "stapler"
+                },
+                "cabinet" : {
+                    "top drawer":{
+                        "folde": "a file",
+                        "folder2" : "secrets"
+                    },
+                    "bottom drawer" : "soda"
+                }
+            };
+            console.log(ourStorage.cabinet["top drawer"].folder2);
+            console.log(ourStorage.desk.drawer);
+            ourStorage.cabinet["top drawer"].folder2 = "cake recipe";
+            console.log(ourStorage.cabinet["top drawer"].folder2);
+
+            //Generate an Array of all objects key
+            console.log(Object.keys(ourStorage)); // show all the keys in objects
+
+    </script>
+</body>
+</html>

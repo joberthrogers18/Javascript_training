@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button id="botao">Adicione</button>
+    <div id="quadrados"></div>
+
+    <h1>Nomes</h1>
+
+    <u class="nomes"></u>
+    <input type="text" name="nome">
+    <button onclick="adicionar()">Adicionar</button>
+
+    <script>
+        var quadrados;
+        var todosQuadrados;
+        quadrados =  document.querySelector("#quadrados");
+
+        function getRandomColor(){
+            var letters = "0123456789ABCDEF";
+            var color = "#";
+            for(var i = 0; i < 6; i++){
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+
+            return color;
+        }
+
+        function criarQuadrados(){
+            var container = document.querySelector("#quadrados");
+            var quadrado = document.createElement("div");
+            quadrado.setAttribute("class", "quad");
+            quadrado.style.width = "100px";
+            quadrado.style.height = "100px";
+            quadrado.style.backgroundColor = '#f00';
+            container.appendChild(quadrado);
+            var br = document.createElement("br");
+            container.appendChild(br);
+
+            quadrado.addEventListener("mouseover", function(){
+                quadrado.style.backgroundColor = getRandomColor();
+            })
+
+            console.log(quadrados);
+        }   
+
+        var botao = document.querySelector("#botao");
+        botao.onclick = function(){
+            criarQuadrados();
+            todosQuadrados = quadrados.querySelectorAll(".quad");
+            console.log(todosQuadrados);
+        }
+
+
+        console.log("Exercício 3");
+
+
+        var nomes = ["Diego", "Gabriel", "Lucas"];
+
+        var u = document.querySelector(".nomes");
+        for(nome of nomes){
+            var li = document.createElement("li");
+            li.textContent = nome;
+            console.log(li);
+            u.appendChild(li);
+        }
+
+        function adicionar(){
+            var inputU = document.querySelector("input[name=nome]").value;
+            console.log(inputU);
+            var li = document.createElement("li");
+            li.textContent = inputU;
+            u.appendChild(li);
+        }
+
+    </script>
+</body>
+</html>

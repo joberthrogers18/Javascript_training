@@ -2,13 +2,15 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    app: './main.js'
+    app: './src/main.js'
   },
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname)
+    path: path.resolve(__dirname, '/public')
   },
-
+  devServer:{
+    contentBase: __dirname + '/public'
+  },
   module: {
     rules: [{
       test: /\.js$/, // include .js files

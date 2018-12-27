@@ -1,3 +1,6 @@
+import axios from 'axios';
+import {onePerSecond, getUserFromGithub, Github, searchUser} from './desafio3'
+//import ClasseUsuario, {idadeExample as idadeUsuario} from './functions';
 // Trabalhando com os arrays
 
 /*const  arr = [1,3,4,5,8,9]
@@ -106,7 +109,7 @@ console.log(`Meu nome é ${nome} e tenho ${idade} anos`); // com crase eu posso 
 
 //Short object Syntax
 
-const nome = 'Jobs';
+/*const nome = 'Jobs';
 const idade = 20;
 
 const usuario = {
@@ -117,4 +120,59 @@ const usuario = {
 
 console.log(usuario);
 
+//Desafio 2
 
+//ClasseUsuario();
+
+ClasseUsuario.info();
+
+console.log(`Idade do arquivo functions ${idadeUsuario}`);
+*/
+
+//Modelo Assyc em ES6
+
+const minhaPromise = () => new Promise((resolve, reject) =>{
+    setTimeout(() => {resolve('Ok')}, 2000);
+});
+/*
+async function executePromise(){
+    console.log(await minhaPromise());  // Com await a outra promisse só começa quando a anterior terminar
+    console.log(await minhaPromise());
+    console.log(await minhaPromise());
+
+}*/
+
+//ou
+
+/*const executePromise = async() => {
+    console.log(await minhaPromise());  // Com await a outra promisse só começa quando a anterior terminar
+    console.log(await minhaPromise());
+    console.log(await minhaPromise());
+}
+
+executePromise();*/
+
+
+class Api{
+    static async getUserInfo(username){
+        try{
+            const response = await axios.get(`https://api.github.com/users/${username}`);
+            console.log(response);
+        } catch (err){
+            console.warn('Não existe esse usuário');
+        }
+
+    }
+}
+
+Api.getUserInfo('joberthrogers18');
+
+//Desafio3
+
+
+onePerSecond();
+getUserFromGithub('joberthrogers18');
+getUserFromGithub('joberthrogers18156151');
+Github.getRepositories('andre-filho/airsoft-events');
+Github.getRepositories('rocketseat/dslkvmjklj');
+searchUser('joberthrogers18');

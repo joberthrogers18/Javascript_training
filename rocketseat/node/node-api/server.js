@@ -10,6 +10,7 @@ const requireDir = require('require-dir');
 
 //Iniciando o app
 const app = express(); //executando o express
+app.use(express.json()); //Enviando com post em formato json
 
 //Iniciando o DataBase
 mongoose.connect(
@@ -20,17 +21,7 @@ mongoose.connect(
 //RequireDir importa todos os arquivos que estao na pasta models
 requireDir('./src/models');
 
-const Product = mongoose.model('Product');
-
-//Criando a primeira rota
-app.get('/', (req, res) => {
-    Product.create({
-        title: 'React Native', 
-        description: 'Build native apps with React',
-        url: 'https://github.com/facebook/react-native'
-    });
-
-    return res.send('Hello mano!');
-});
+//Importando a rota /
+app.use('/api', require('./src/routes'));
 
 app.listen(3001); //aplicação ouvir a porta 3001 do navegador

@@ -20,5 +20,5 @@ const ProductSchema = new mongoose.Schema({
     },
 });
 
-//Registrar um model na aplicação
+//Registrar um model na aplicação 
 mongoose.model('Product', ProductSchema); 

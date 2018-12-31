@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate');
 
 //Descrição da tabela no mongoDb
 const ProductSchema = new mongoose.Schema({
@@ -19,6 +20,8 @@ const ProductSchema = new mongoose.Schema({
         default: Date.now,
     },
 });
+
+ProductSchema.plugin(mongoosePaginate);
 
 //Registrar um model na aplicação 
 mongoose.model('Product', ProductSchema); 

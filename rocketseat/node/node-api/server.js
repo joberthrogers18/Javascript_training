@@ -7,10 +7,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 //importar diversos arquivos de uma pasta
 const requireDir = require('require-dir');
+const cors = require('cors');
 
 //Iniciando o app
 const app = express(); //executando o express
 app.use(express.json()); //Enviando com post em formato json
+app.use(cors()); //dominios que eu quero permiti acesso
 
 //Iniciando o DataBase
 mongoose.connect(

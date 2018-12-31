@@ -4,7 +4,8 @@ const Product = mongoose.model('Product');
 
 module.exports = {
     async index(req, res){ //GET
-        const products = await Product.find(); // buscar todos os produtos
+        const { page = 1} = req.query; //recebe o pagarametro get para retorna apenas a pagina com os respectivos produtos
+        const products = await Product.paginate({}, {page, limit: 10}); // buscar todos os produtos
 
         return res.json(products); //retorna um em estrutura json
     },

@@ -1,18 +1,15 @@
-var dbConnection = require('../../config/dbConnection'); //apenas importando a função sem executar
+module.exports = application => {
 
-module.exports = app => {
+    application.get('/noticias', (req, res) => {
 
-    var connection = dbConnection(); // executando a função de dbConnection em config;
+        var connection = application.config.dbConnection(); // executando a função em dbConnection, que eh passada por parametro e não precisa usando require tendo uma peformace a mais
+        var noticiasModel = application.app.models.noticiaModel;
 
-    app.get('/noticias', (req, res) => {
-
-
-        connection.query('SELECT * FROM NOTICIAS', function (erro, result){
+        noticiasModel.getNoticias(connection, function (erro, result){
             
             res.render("noticias/noticias", {noticias: result});
  
-        });//Fazendo consulta no banco
-
+        });
    });
 };
 

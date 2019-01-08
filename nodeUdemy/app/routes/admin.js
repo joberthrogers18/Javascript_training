@@ -7,9 +7,9 @@ module.exports = application => {
         var noticia = req.body; // isso só funciona se importar e configurar o body parse la no server, isso apenas em post
 
         var connection = application.config.dbConnection(); // executando a função em dbConnection, que eh passada por parametro e não precisa usando require tendo uma peformace a mais
-        var noticiasModel = application.app.models.noticiaModel;
+        var noticiasModel = new application.app.models.NoticiasDAO;
 
-        noticiasModel.salvarNoticia( noticia, connection, function (erro, result){
+        noticiasModel.salvarNoticia(noticia, connection, function (erro, result){
             res.redirect("/noticias");
         });
     });

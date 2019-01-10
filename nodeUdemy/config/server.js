@@ -15,6 +15,7 @@ consign()
     .include('./app/routes')
     .then('./config/dbConnection.js')
     .then('./app/models')
+    .then('./app/controllers')
     .into(app); 
 // pega todas as instancias da pasta routes com todas as rotas e incluem dentro do servido no caso app
 

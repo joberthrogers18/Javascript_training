@@ -1,14 +1,11 @@
 module.exports = application => {
 
     application.get('/noticias', (req, res) => {
-
-        var connection = application.config.dbConnection(); // executando a função em dbConnection, que eh passada por parametro e não precisa usando require tendo uma peformace a mais
-        var noticiasModel = new application.app.models.NoticiasDAO(connection);
-
-        noticiasModel.getNoticias(function (erro, result){
-            res.render("noticias/noticias", {noticias: result});
- 
-        });
+        application.app.controllers.noticias.exibeNoticias(application, req, res);
    });
+
+   application.get('/noticia', (req, res) => {
+        application.app.controllers.noticias.exibeNoticia(application, req, res);
+    });
 };
 

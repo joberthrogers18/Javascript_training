@@ -8,6 +8,7 @@ app.set('view engine', 'ejs'); // ejs responsavel pela criação de views usando
 app.set('views', './app/views'); // local de arquivo para buscar arquivos usando require, ajuda a achar os arquivos pelas rotas
 //aponta o caminho das views.
 
+app.use(express.static('./app/public')); // identificando os arquivos estaticos 
 app.use(bodyParse.urlencoded({ extended: true})); // por ser um midware o body parse precisa ser importando antes do consign
 app.use(expressValidator()); //midware responsavel por validar campos
 

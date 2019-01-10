@@ -11,7 +11,10 @@ module.exports.exibeNoticia = function(application, req, res){
     var connection = application.config.dbConnection();
     var noticiaModel = new application.app.models.NoticiasDAO(connection);
 
-    noticiaModel.getNoticia((error, result) => {
+    var idNoticia = req.query; // responsavel por recuperar parametros na url "noticia?idNoticia = 15"
+
+    noticiaModel.getNoticia(idNoticia, (error, result) => {
+        console.log(result);
         res.render("noticias/noticia", {noticia : result});
     }); 
 }

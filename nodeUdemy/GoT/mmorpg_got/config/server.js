@@ -31,6 +31,7 @@ consign()
 	.include('app/routes')
 	.then('app/models')
 	.then('app/controllers')
+	.then('config/dbConnection.js') // para que ele não entenda que eh um diretorio, passa a extenssão
 	.into(app);
 
 /* exportar o objeto app */

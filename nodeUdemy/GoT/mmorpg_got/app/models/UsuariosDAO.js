@@ -23,11 +23,13 @@ UsuariosDAO.prototype.autenticar = function(usuario, req, res){
                     req.session.casa = result[0].casa;
                 }
 
+                var erro = 'Usuario ou senha invalidos';
+
                 if(req.session.autorizado){
                     res.redirect("jogo");
                 }
                 else{
-                    res.render("index", {validacao: {}});
+                    res.render("index", {validacao: {msg: erro}});
                 }
             });
 

@@ -10,6 +10,9 @@ var bodyParser = require('body-parser');
 /* importar o módulo do express-validator */
 var expressValidator = require('express-validator');
 
+/* importar o módulo do express-session */
+var expressSession = require('express-session');
+
 /* iniciar o objeto do express */
 var app = express();
 
@@ -26,12 +29,19 @@ app.use(bodyParser.urlencoded({extended: true}));
 /* configurar o middleware express-validator */
 app.use(expressValidator());
 
+/* configurar o middleware express-session */
+app.use(expressSession({
+	secret: 'iuashddiugfhhskadnf',
+	resave: false,
+	saveUninitialized: false
+}));
+
 /* efetua o autoload das rotas, dos models e dos controllers para o objeto app */
 consign()
 	.include('app/routes')
+	.then('config/dbConnection.js')
 	.then('app/models')
 	.then('app/controllers')
-	.then('config/dbConnection.js') // para que ele não entenda que eh um diretorio, passa a extenssão
 	.into(app);
 
 /* exportar o objeto app */

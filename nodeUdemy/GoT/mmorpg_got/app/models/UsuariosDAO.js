@@ -1,31 +1,40 @@
 function UsuariosDAO(connection){
-   this._connection = connection(); // a função do wrapper no dbConnetion retorna os dados de conexão com o mongodb
+    this._connection = connection();
 }
 
-UsuariosDAO.prototype.inseriUsuario = function(usuario){    
-    /*this._connection.open(function(err, mongoClient){
-        mongoClient.collection("usuarios", function(err, collection){ // O open retorna uma função de callback e a parti dai eu pego o resultado e consigo manipular atraves do collentopn 
-                                                                        // O primeiro parametro eh a collection que desejo manipular e a segunda eh um função callback com a tratativa
-            collection.insert(usuario); //insere no db
+UsuariosDAO.prototype.inserirUsuario = function(usuario){
+    this._connection.open(function(err, mongoclient){
+        mongoclient.collection("usuarios", function(err, collection){
+            collection.insert(usuario);
+            mongoclient.close();
         });
-    }); // Com o open que se faz as tratativas dentro do db*/
-
- /*   this._connection.connect('mongodb://localhost/got', function(err, db) {
-        db.collections('Usuario').insertOne(usuario);
-    }); */
-        // Insert a single document
-    
-    this._connection.connect(function(err, client) {
-        console.log("Connected correctly to server");
-        
-        const db = client.db('got');
-
-        db.collection('usuarios').insertOne(usuario, function(err, r){
-            client.close();
-        });
-        
     });
-}    
+}
+
+UsuariosDAO.prototype.autenticar = function(usuario, req, res){
+    this._connection.open(function(err, mongoclient){
+        mongoclient.collection("usuarios", function(err, collection){
+            collection.find(usuario).toArray(function(err, result){
+                if(result[0] !== undefined){
+                    req.session.autorizado = true; // se o usuario existi no banco uma variavel de sessão ira ser criada com o nome de autorizado
+
+                    req.session.usuario = result[0].usuario;
+
+                    req.session.casa = result[0].casa;
+                }
+
+                if(req.session.autorizado){
+                    res.redirect("jogo");
+                }
+                else{
+                    res.render("index", {validacao: {}});
+                }
+            });
+
+            mongoclient.close();
+        });
+    })
+}
 
 module.exports = function(){
     return UsuariosDAO;

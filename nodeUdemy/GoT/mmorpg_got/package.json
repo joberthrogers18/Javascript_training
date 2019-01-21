@@ -13,8 +13,8 @@
     "consign": "^0.1.2",
     "ejs": "^2.5.2",
     "express": "^4.14.0",
-    "express-session": "^1.15.3",
+    "express-session": "^1.14.1",
     "express-validator": "^2.20.8",
-    "mongodb": "^2.2.29"
+    "mongodb": "^2.2.10"
   }
 }

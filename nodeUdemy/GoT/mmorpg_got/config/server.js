@@ -29,9 +29,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 /* configurar o middleware express-validator */
 app.use(expressValidator());
 
-/* configurar o middleware express-session */
+/* configura o middleware express-session */
 app.use(expressSession({
-	secret: 'iuashddiugfhhskadnf',
+	secret: 'hakjehrgkjahjer',
 	resave: false,
 	saveUninitialized: false
 }));

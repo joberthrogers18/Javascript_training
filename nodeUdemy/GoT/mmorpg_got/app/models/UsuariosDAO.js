@@ -1,43 +1,43 @@
 function UsuariosDAO(connection){
-    this._connection = connection();
+	this._connection = connection();
 }
 
 UsuariosDAO.prototype.inserirUsuario = function(usuario){
-    this._connection.open(function(err, mongoclient){
-        mongoclient.collection("usuarios", function(err, collection){
-            collection.insert(usuario);
-            mongoclient.close();
-        });
-    });
+	this._connection.open( function(err, mongoclient){
+		mongoclient.collection("usuarios", function(err, collection){
+			collection.insert(usuario);
+
+			mongoclient.close();
+		});
+	});
 }
 
 UsuariosDAO.prototype.autenticar = function(usuario, req, res){
-    this._connection.open(function(err, mongoclient){
-        mongoclient.collection("usuarios", function(err, collection){
-            collection.find(usuario).toArray(function(err, result){
-                if(result[0] !== undefined){
-                    req.session.autorizado = true; // se o usuario existi no banco uma variavel de sessão ira ser criada com o nome de autorizado
+	this._connection.open( function(err, mongoclient){
+		mongoclient.collection("usuarios", function(err, collection){
+			collection.find(usuario).toArray(function(err, result){
 
-                    req.session.usuario = result[0].usuario;
+				if(result[0] != undefined){
 
-                    req.session.casa = result[0].casa;
-                }
+					req.session.autorizado = true;
 
-                var erro = 'Usuario ou senha invalidos';
+					req.session.usuario = result[0].usuario;
+					req.session.casa = result[0].casa;
+				}
 
-                if(req.session.autorizado){
-                    res.redirect("jogo");
-                }
-                else{
-                    res.render("index", {validacao: {msg: erro}});
-                }
-            });
+				if(req.session.autorizado){
+					res.redirect("jogo");
+				} else {
+					res.render("index", {validacao: {}});
+				}
 
-            mongoclient.close();
-        });
-    })
+			});
+			mongoclient.close();
+		});
+	});
 }
 
+
 module.exports = function(){
-    return UsuariosDAO;
+	return UsuariosDAO;
 }

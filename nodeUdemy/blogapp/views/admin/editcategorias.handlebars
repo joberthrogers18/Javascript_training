@@ -9,14 +9,15 @@
     </div>
 {{/if}}
 
-<h3>Nova categoria: </h3>
+<h3>Editar categoria: </h3>
 <div class="card">
     <div class="card-body">
-        <form action="/admin/categorias/nova" method="POST">
+        <form action="/admin/categorias/edit" method="POST">
+            <input type="hidden" name="id" value="{{category._id}}">
             <label for="name">Nome: </label>
-                <input class="form-control mb-2" type="text" id="name" name="name" placeholder="Nome da categoria">
+                <input class="form-control mb-2" type="text" id="name" name="name" value="{{category.name}}" placeholder="Nome da categoria">
             <label for="slug">Slug: </label>
-                <input class="form-control mb-4" type="text" name="slug" id="slug" placeholder="Slug da categoria">
+                <input class="form-control mb-4" type="text" name="slug" id="slug" value="{{category.slug}}" placeholder="Slug da categoria">
             <button class="btn btn-success" type="submit">Enviar</button>
         </form>
     </div>

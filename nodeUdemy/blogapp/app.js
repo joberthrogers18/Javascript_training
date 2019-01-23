@@ -3,6 +3,7 @@ const express = require("express");
 const handlebars = require("express-handlebars");
 const bodyParser = require("body-parser");
 //const mongoose = require("mongoose");
+const path = require("path");
 
 const admin = require('./routes/admin');
 
@@ -18,6 +19,8 @@ const app = express();
         app.set('view engine', 'handlebars');
     //Mongoose  
         //...
+    //Public
+        app.use(express.static(path.join(__dirname, "public"))); // files from static files
 
 //Routes
     app.use('/admin', admin);

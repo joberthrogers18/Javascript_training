@@ -2,7 +2,9 @@ const express = require("express");
 const router = express.Router()
 const mongoose = require('mongoose');
 require('../models/Category');
-const Category = mongoose.model('category');
+const Category = mongoose.model('category'); // for model Post work we need the line above
+require('../models/Posts')
+const Post = mongoose.model('post'); // for model Post work we need the line above
 
 router.get('/', (req, res) => {
     res.render("admin/index")
@@ -90,10 +92,8 @@ router.post("/categorias/edit", (req, res) => {
         var allErrors = '';
 
         for(var i = 0; i < errors.length; i++){
-            allErrors += "*" + errors[i].text ;
+            allErrors += " "+ (i+1) + " - " +  errors[i].text ;
         }
-
-        console.log(allErrors)
 
         req.flash("error_msg", allErrors);
 
@@ -119,6 +119,61 @@ router.post("/categorias/edit", (req, res) => {
         req.flash("error_msg", "Ocurr a error to edit the category !");
         res.redirect("/admin/categorias")
     })
+});
+
+router.post("/categorias/deletar", (req, res) => {
+
+    Category.deleteOne({_id: req.body.id})
+    .then(() => {
+        req.flash("success_msg", "Categorie remove successfuly");
+        res.redirect("/admin/categorias");
+    }).catch(err => {
+        req.flash("error_msg", "Ocurr an error in remove categorie");
+        res.redirect("/admin/categorias");
+    });
+});
+
+router.get("/postagens", (req, res) => {
+    res.render("admin/postagens");
+});
+
+router.get("/postagens/add", (req, res) => {
+    Category.find().then(category =>{
+        console.log(category)
+        res.render("admin/addpostagem", {category: category})
+    }).catch(err =>{
+        req.flash("error_msg", "Houve um erro ao carregar o formulario");
+        res.redirect("/admin");
+    })
+});
+
+router.post("/postagens/nova", (req, res) => {
+    var errors = []
+
+    if(req.body.category === 0){
+        errors.push({text: "Categoria invalida, registre uma nova categoria! "});
+    }
+
+    if(errors.length > 0){
+        res.render("admin/addpostagem", {errors: errors})
+    }
+    else{
+        const newPost = {
+            title: req.body.title,
+            description: req.body.description,
+            content: req.body.content,
+            category:  req.body.category,
+            slug: req.body.slug
+        }
+
+        new Post(newPost).save().then(() => {
+            req.flash("success_msg", "Postagem criada com sucesso");
+            res.redirect("/admin/postagens");
+        }).catch(err => {
+            req.flash("error_msg", "Houve um erro durante o salvamento da postagem");
+            res.redirect("/admin/postagens");
+        });
+    }
 });
 
 module.exports = router

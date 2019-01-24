@@ -6,14 +6,15 @@
     <div class="card mt-4">
         <div class="card-body">
             <div class="row">
-                <div class="col col-sm col-md col-lg col-xl">
+                <div class="col-12 col-sm col-md col-lg col-xl">
                     <h4>{{title}}</h4>
                     <p>Descrição: {{description}}</p>
                     <small>Data: {{date}}</small><br/>
                     <small>Categoria: {{category.name}}</small>
                 </div>
-                <div class="col-4 col-sm-3 col-md-3 col-lg-3 col-xl-3">
-                    <a href="/admin/postagens/edit/{{_id}}"><button class="btn btn-success">Editar</button></a>
+                <div class="col col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                    <a href="/admin/postagens/edit/{{_id}}"><button class="btn btn-success mt-3" style="width: 78px;">Editar</button></a>
+                    <a href="/admin/postagens/deletar/{{_id}}"><button class="btn btn-danger mt-3" >Deletar</button></a>
                 </div>
             </div>
         </div>

@@ -134,12 +134,17 @@ router.post("/categorias/deletar", (req, res) => {
 });
 
 router.get("/postagens", (req, res) => {
-    res.render("admin/postagens");
+    Post.find().populate("category").sort({date: 'desc'}).then(posts => {
+        res.render("admin/postagens", {posts: posts});
+    }).catch(err => {
+        req.flash("error_msg", "Não foi possível carregar os posts");
+        res.redirect("/admin");
+    });
+
 });
 
 router.get("/postagens/add", (req, res) => {
     Category.find().then(category =>{
-        console.log(category)
         res.render("admin/addpostagem", {category: category})
     }).catch(err =>{
         req.flash("error_msg", "Houve um erro ao carregar o formulario");
@@ -174,6 +179,41 @@ router.post("/postagens/nova", (req, res) => {
             res.redirect("/admin/postagens");
         });
     }
+});
+
+router.get("/postagens/edit/:id", (req, res) => {
+
+    Post.findOne({_id: req.params.id}).populate("category")
+    .then(post => {
+        Category.find().then(categories => {
+            res.render("admin/editpostagens", {post: post, categories: categories});
+        })
+    }).catch(err => {
+        req.flash("error_msg", "Erro ao carregar a pagina de edição!");
+        res.redirect("admin/postagens");
+    })
+});
+
+router.post("/postagens/edit", (req, res) => {
+    Post.findOne({_id: req.body.id}).then((post) => {
+        post.title = req.body.title
+        post.slug = req.body.slug
+        post.description = req.body.description
+        post.content = req.body.content
+        post.category = req.body.category
+
+        post.save().then(() =>{
+            req.flash("success_msg", "Post atulizado com sucesso!");
+            res.redirect("/admin/postagens");
+        }).catch(err => {
+            req.flash("error_msg", "Não foi possivel atualizar o registro!");
+            res.redirect("/admin/postagens");
+        });
+
+    }).catch(err => {
+        req.flash("error_msg", "Não foi possivel atualizar!");
+        res.redirect("/admin/postagens");
+    })
 });
 
 module.exports = router

@@ -7,7 +7,9 @@ const path = require("path");
 const session =  require('express-session');
 const flash = require("connect-flash"); // flash it is message for a during period of time till load
 
-const admin = require('./routes/admin');
+const admin = require('./routes/admin'); //import routes
+const user = require('./routes/usuario');
+
 
 //Load model posts
 require("./models/Posts")
@@ -115,7 +117,8 @@ const app = express();
         });
     })
 
-    app.use('/admin', admin);
+    app.use('/admin', admin); // use prefix to routes
+    app.use("/usuarios", user);
 //Others
 
 const PORT = 8081

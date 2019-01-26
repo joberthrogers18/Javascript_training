@@ -1,0 +1,27 @@
+{{#if errors}}
+    <div class="alert alert-danger">
+        <h3><strong>Atenção!</strong></h3>
+        <ul>
+            {{#each errors}}
+                <li>{{text}}</li>
+            {{/each}}
+        </ul>
+    </div>
+{{/if}}
+
+<h3>Crie sua conta hoje: </h3>
+<div class="card">
+    <div class="card-body">
+        <form action="" method="post">
+            <label for="name">Nome: </label>
+                <input type="text" name="name" class="form-control" required>
+            <label for="email">Email: </label>
+                <input type="email" name="email" class="form-control" required>
+            <label for="password">Senha: </label>
+                <input type="password" name="password" class="form-control" required>
+            <label for="password2">Repita sua senha: </label>
+                <input type="password" name="password2" class="form-control" required>
+            <button type="submit" class="btn btn-success mt-5">Cadastrar</button>
+        </form>
+    </div>
+</div>

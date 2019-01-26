@@ -43,6 +43,7 @@ const app = express();
             res.locals.success_msg = req.flash("success_msg"); //variables global
             res.locals.error_msg = req.flash("error_msg"); 
             res.locals.error = req.flash("error"); // For display the errors in screen from passport we need create this variable error
+            res.locals.user = req.user || null; //variable for save data from user and passport create
             next();
         })
         

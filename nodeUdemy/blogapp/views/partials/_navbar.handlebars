@@ -11,14 +11,15 @@
       <li class="nav-item">
         <a class="nav-link" href="/categorias">Categorias</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Login</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Registro</a>
-      </li>
     </ul>
   </div>
+  {{#if user}}
+    <a class="nav-link" href="usuarios/logout"><button class="btn btn-success">Logout</button></a>
+  {{else}}
+    <a class="nav-link" href="/usuarios/login"><button class="btn btn-dark">Login</button></a>
+    <a class="nav-link" href="usuarios/registro"><button class="btn btn-dark">Registro</button></a>
+  {{/if}}
+
 </nav>
 
 <style>

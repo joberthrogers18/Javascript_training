@@ -9,6 +9,9 @@ const User = mongoose.model("user");
 //bcrypt
 const bcrypt = require("bcryptjs"); // this is for encripted the password
 
+//Passport 
+const passport = require("passport");
+
 router.get("/registro", (req, res) => {
     res.render("usuarios/registro");
 });
@@ -81,6 +84,18 @@ router.post("/registro", (req, res) => {
             res.redirect("/");
         });
     }
+});
+
+router.get("/login", (req,res) => {
+    res.render("usuarios/login")
+})
+
+router.post("/login", (req, res, next) => { //because is a route of authenticate from passport use the "next" like in middleware
+    passport.authenticate("local", {
+        successRedirect: "/",
+        failureRedirect: "/usuarios/login",
+        failureFlash: true
+    })(req,res, next)
 });
 
 module.exports = router;

@@ -19,6 +19,10 @@ const Post = mongoose.model("post");
 require("./models/Category");
 const Category = mongoose.model("category");
 
+//load file contain the authenticate user
+    const passport =require("passport");
+    require('./config/auth')(passport);
+
 const app = express();
 
 //Config
@@ -27,13 +31,18 @@ const app = express();
             secret: 'qualquer coisa///',
             resave: true,
             saveUninitialized: true
-        })) // creating session
+        })) // creating session                                 //Only will work if this sequence is execute
+
+        app.use(passport.initialize()); // initialize passport
+        app.use(passport.session()); //initialize the session
+
         app.use(flash())
-    
+        
     //Middleware
         app.use((req, res, next) => {
             res.locals.success_msg = req.flash("success_msg"); //variables global
             res.locals.error_msg = req.flash("error_msg"); 
+            res.locals.error = req.flash("error"); // For display the errors in screen from passport we need create this variable error
             next();
         })
         

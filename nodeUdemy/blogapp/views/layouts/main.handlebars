@@ -10,6 +10,11 @@
 <body>
     {{>_navbar}} {{!-- using this i can take the component and take by extends--}}
     <div class="container mt-5">
+        {{#if error}}
+            <div class="alert alert-danger">{{error}}</div> {{!-- Error from passport make by flash--}}
+        {{else}}
+
+        {{/if}}
         {{>_msg}}
         {{{body}}}
     </div>

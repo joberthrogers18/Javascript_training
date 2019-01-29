@@ -23,6 +23,10 @@ const Category = mongoose.model("category");
     const passport =require("passport");
     require('./config/auth')(passport);
 
+//load db file
+
+const db = require("./config/db")
+
 const app = express();
 
 //Config
@@ -57,7 +61,7 @@ const app = express();
 
     //Mongoose  
         mongoose.Promise = global.Promise; // essential line, not forget to add here
-        mongoose.connect("mongodb://localhost/blogapp", {useNewUrlParser: true})
+        mongoose.connect(db.mongoUri, {useNewUrlParser: true})
         .then(() => {
             console.log('Connect to mongo');
         })

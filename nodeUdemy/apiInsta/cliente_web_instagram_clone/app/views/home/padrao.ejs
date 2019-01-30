@@ -17,6 +17,36 @@
 		<script>
 			$(document).ready(function(){
 
+				function loadPosts(){
+					 var xhttp = new XMLHttpRequest;
+
+					 xhttp.open("GET", "http://localhost:8081/api");
+
+					 xhttp.onload = function(){ //essa função ocorre quando há  logo após o carregamento completo da requisição
+						if(this.status === 200){
+							var data = JSON.parse(xhttp.responseText);
+							
+							var timeline = document.getElementById("container_timeline");
+
+
+							for(var i =0; i< data.length; i++){
+								$('#container_timeline').append(
+									'<div class="publicacao">'+
+										'<span class="titulo">'+
+										data[i].title +
+										'</span>'+
+										'<img src="http://localhost:8081/imagens/'+ data[i].url_image + '" />' +
+									'</div>'
+								);
+							}
+						}
+					 }
+
+					 xhttp.send();
+				}
+
+				loadPosts();
+
 				$('#btn_incluir').click(function(){
 					$('#container_timeline').hide();
 					$('#container_form').show();

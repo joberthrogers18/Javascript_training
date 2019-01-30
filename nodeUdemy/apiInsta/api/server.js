@@ -36,7 +36,7 @@ app.get("/", (req, res) => {
 
 app.post("/api", (req,res) => {
 
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3001"); //reader for post comunicate with front end, because without it, it response only the browser
+    res.setHeader("Access-Control-Allow-Origin", "*"); //reader for post comunicate with front end, because without it, it response only the browser
 
     var date = new Date();
     var time_stamp = date.getTime(); //time stamp of moment the function is running
@@ -71,6 +71,9 @@ app.post("/api", (req,res) => {
 });
 
 app.get("/api", (req, res) => {
+
+    res.setHeader("Access-Control-Allow-Origin", "*"); //reader for post comunicate with front end, because without it, it response only the browser
+
     Post.find().then(posts =>{
         res.status(200).send(posts)
     }).catch(err => {
@@ -87,6 +90,20 @@ app.get("/api/:id", (req, res) => {
         res.status(404).json({"msg": "Occur an erro to find"});
     });
 
+});
+
+app.get("/imagens/:imagem", (req, res) => {
+    var img = req.params.imagem;
+
+    fs.readFile('./uploads/' + img, function(err, content){ // recover the binary from image in upload directory
+        if(err){
+            res.status(400).json(err);
+            return;
+        }
+
+        res.writeHead(200, {'content-type': 'image/jpeg', 'content-type': 'image/png'}) // send in head response which the browser will handler with image  and need change content type
+        res.end(content); //take determinate information and append to response
+   });
 });
 
 app.put("/api/:id", (req, res) => {

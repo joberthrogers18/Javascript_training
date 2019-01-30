@@ -54,7 +54,7 @@ app.post("/api", (req,res) => {
     var time_stamp = date.getTime(); //time stamp of moment the function is running
     //this is use to make images diferentes even if the same name
 
-    var url_image = time_stamp + "_" + req.files.image_url.originalFilename;
+    var url_image = time_stamp + "_" + req.files.image_url.originalFilename; // url with image name modify to became one image unique in database using time stamp
 
     var originPath = req.files.image_url.path; //take the path from file temporary for save in dictory uploads
 

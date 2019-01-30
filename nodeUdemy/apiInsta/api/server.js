@@ -1,7 +1,13 @@
  //Load modules
 const express = require("express");
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose"); 
+const mongoose = require("mongoose");
+
+const fs =require("fs"); //this module is for manipulate files
+
+
+//Load multiparty
+const multiparty = require("connect-multiparty");
 
 require("./models/Post");
 const Post = mongoose.model("post");
@@ -12,6 +18,7 @@ const Post = mongoose.model("post");
     //Body Parser
     app.use(bodyParser.urlencoded({extended: true}));
     app.use(bodyParser.json());
+    app.use(multiparty());  // Now the api can interpret forms with files
 
     //mongoose
     mongoose.Promise = global.Promise;
@@ -26,15 +33,41 @@ app.get("/", (req, res) => {
     res.send({msg: "Olá!"});
 });
 
+
 app.post("/api", (req,res) => {
-    const dataPost = req.body;
-    
-    new Post(dataPost).save()
-    .then(() => {
-        res.json({'status': 'included'});
-    }).catch(err => {
-        res.json({'status': 'Error in sign up'});
-    })
+
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3001"); //reader for post comunicate with front end, because without it, it response only the browser
+
+    var date = new Date();
+    var time_stamp = date.getTime(); //time stamp of moment the function is running
+    //this is use to make images diferentes even if the same name
+
+    var url_image = time_stamp + "_" + req.files.image_url.originalFilename;
+
+    var originPath = req.files.image_url.path; //take the path from file temporary for save in dictory uploads
+
+    var destinyPath = './uploads/' + url_image;
+
+
+    fs.rename(originPath, destinyPath , err => {
+        if(err){
+            res.status(500).json({error: err});
+            return;
+        }
+
+        var dataPost = {
+            title: req.body.title,
+            url_image: url_image
+        }
+        
+        new Post(dataPost).save()
+        .then(() => {
+            res.json({'status': 'included'});
+        }).catch(err => {
+            res.json({'status': 'Error in sign up'});
+        })
+
+    }); // move the file
 });
 
 app.get("/api", (req, res) => {

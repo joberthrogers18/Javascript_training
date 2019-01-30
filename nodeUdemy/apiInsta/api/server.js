@@ -18,7 +18,19 @@ const Post = mongoose.model("post");
     //Body Parser
     app.use(bodyParser.urlencoded({extended: true}));
     app.use(bodyParser.json());
+    
     app.use(multiparty());  // Now the api can interpret forms with files
+
+    app.use(function(req, res, next){   // Configure the preflight response when is method put or delete in verb request
+
+        //how i use this here in preflight reposnse, we don't need adding this in all routes
+        res.setHeader("Access-Control-Allow-Origin", "*"); // able request cross domain, requests from domains diferents
+        res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");  //indicate what is the method which this orign can request
+        res.setHeader("Access-Control-Allow-Headers", "content-type"); //able the request execute by origin have header writtens (can rewrite any option from header from request)
+        res.setHeader("Access-Control-Allow-Credentials", true); //
+
+        next();
+    });
 
     //mongoose
     mongoose.Promise = global.Promise;
@@ -36,7 +48,7 @@ app.get("/", (req, res) => {
 
 app.post("/api", (req,res) => {
 
-    res.setHeader("Access-Control-Allow-Origin", "*"); //reader for post comunicate with front end, because without it, it response only the browser
+    //res.setHeader("Access-Control-Allow-Origin", "*"); //reader for post comunicate with front end, because without it, it response only the browser
 
     var date = new Date();
     var time_stamp = date.getTime(); //time stamp of moment the function is running
@@ -72,7 +84,7 @@ app.post("/api", (req,res) => {
 
 app.get("/api", (req, res) => {
 
-    res.setHeader("Access-Control-Allow-Origin", "*"); //reader for post comunicate with front end, because without it, it response only the browser
+    //res.setHeader("Access-Control-Allow-Origin", "*"); //reader for post comunicate with front end, because without it, it response only the browser
 
     Post.find().then(posts =>{
         res.status(200).send(posts)
@@ -107,15 +119,22 @@ app.get("/imagens/:imagem", (req, res) => {
 });
 
 app.put("/api/:id", (req, res) => {
-    dataPost = req.params;
 
-    Post.update({_id: dataPost.id},
-        {$set: {title: req.body.title, url_image: req.body.url_image}})
-        .then(() => {
+    Post.update({_id: mongoose.Types.ObjectId(req.params.id)}, 
+                {$push: 
+                    {commentaries: {
+                        id_commentarie: mongoose.Types.ObjectId(),
+                        commentarie: req.body.commentarie
+
+                    }}
+                })
+        .then((result) => {
             res.status(200).json({"msg": "Update post"});
+            console.log(result)
         }).catch(err => {
             res.status(500).json({"msg": "Couldn't update post"});
         })
+
 });
 
 app.delete("/api/:id", (req, res) => {

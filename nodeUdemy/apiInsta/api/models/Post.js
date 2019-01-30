@@ -9,7 +9,8 @@ var Post = new Schema({
     url_image: {
         type: String,
         required: true
-    }
+    },
+    commentaries: []
 });
 
 mongoose.model('post', Post);

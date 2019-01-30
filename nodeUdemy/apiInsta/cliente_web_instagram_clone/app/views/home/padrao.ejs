@@ -35,10 +35,33 @@
 										'<span class="titulo">'+
 										data[i].title +
 										'</span>'+
-										'<img src="http://localhost:8081/imagens/'+ data[i].url_image + '" />' +
+										'<img style="width: 700px; height: 500px;" src="http://localhost:8081/imagens/'+ data[i].url_image + '" />' +
+										'<div class="comentar">' +
+											'<input type="text" class="form-control input_comentario" id="postagem_'+ data[i]._id+'" placeholder="Adicione um comentário...">' +
+											'<button class="btn btn-default btn_postagem" value="'+ data[i]._id+'" type="button">Comentar</button>' + 
+										'</div>' +
 									'</div>'
 								);
 							}
+
+							$('.btn_postagem').click(function(){
+								var id = this.value;
+								var commentarie = document.getElementById('postagem_'+ id).value;
+
+								var xhttp = new XMLHttpRequest();
+
+								xhttp.open("PUT", "http://localhost:8081/api/"+id);
+								xhttp.setRequestHeader('content-type', 'application/json'); // in server we able content type by header and for server know that the content bellow is json we send in header 
+								
+								xhttp.onload = function(){
+									if(this.status === 200){
+										window.location.href = '/home'
+									}
+								}
+
+								xhttp.send(JSON.stringify({commentarie: commentarie })); //the send hope a string
+
+							})
 						}
 					 }
 

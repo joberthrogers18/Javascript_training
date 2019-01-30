@@ -30,7 +30,7 @@ const Post = mongoose.model("post");
     });
     
 app.get("/", (req, res) => {
-    res.send({msg: "Olá!"});
+    res.status(200).send({msg: "Olá!"});
 });
 
 
@@ -62,9 +62,9 @@ app.post("/api", (req,res) => {
         
         new Post(dataPost).save()
         .then(() => {
-            res.json({'status': 'included'});
+            res.status(200).json({'status': 'included'});
         }).catch(err => {
-            res.json({'status': 'Error in sign up'});
+            res.status(500).json({'status': 'Error in sign up'});
         })
 
     }); // move the file
@@ -72,9 +72,9 @@ app.post("/api", (req,res) => {
 
 app.get("/api", (req, res) => {
     Post.find().then(posts =>{
-        res.send(posts)
+        res.status(200).send(posts)
     }).catch(err => {
-        res.json({"msg": "Error to find posts!"});
+        res.status(500).json({"msg": "Error to find posts!"});
     })
 });
 
@@ -82,9 +82,9 @@ app.get("/api/:id", (req, res) => {
     var id = req.params.id;
     
     Post.find({_id: {$eq: id}}).then(post => {
-        res.send(post);
+        res.status(200).send(post);
     }).catch(err => {
-        res.json({"msg": "Occur an erro to find"});
+        res.status(404).json({"msg": "Occur an erro to find"});
     });
 
 });
@@ -95,9 +95,9 @@ app.put("/api/:id", (req, res) => {
     Post.update({_id: dataPost.id},
         {$set: {title: req.body.title, url_image: req.body.url_image}})
         .then(() => {
-            res.json({"msg": "Update post"});
+            res.status(200).json({"msg": "Update post"});
         }).catch(err => {
-            res.json({"msg": "Couldn't update post"});
+            res.status(500).json({"msg": "Couldn't update post"});
         })
 });
 
@@ -106,9 +106,9 @@ app.delete("/api/:id", (req, res) => {
 
     Post.remove({_id: {$eq: id}})
     .then(() => {
-        res.json({"msg": "Remotion make with sucess!"});
+        res.status(200).json({"msg": "Remotion make with sucess!"});
     }).catch(err => {
-        res.json({"msg": "Error in remotion!"});
+        res.status(500).json({"msg": "Error in remotion!"});
     });
 });
 

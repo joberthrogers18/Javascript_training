@@ -120,7 +120,9 @@ app.get("/imagens/:imagem", (req, res) => {
 
 app.put("/api/:id", (req, res) => {
 
-    Post.update({_id: mongoose.Types.ObjectId(req.params.id)}, 
+    console.log(req.params.id);
+
+    Post.updateOne({_id: mongoose.Types.ObjectId(req.params.id)},  // will search in all commentarie till find a commentarie with id lique pass in params
                 {$push: 
                     {commentaries: {
                         id_commentarie: mongoose.Types.ObjectId(),
@@ -138,9 +140,13 @@ app.put("/api/:id", (req, res) => {
 });
 
 app.delete("/api/:id", (req, res) => {
-    id = req.params.id;
 
-    Post.remove({_id: {$eq: id}})
+    Post.updateMany({}, 
+        { $pull : {
+                        commentaries: {id_commentarie: {$eq: mongoose.Types.ObjectId(req.params.id)}}
+                  }
+
+        })
     .then(() => {
         res.status(200).json({"msg": "Remotion make with sucess!"});
     }).catch(err => {

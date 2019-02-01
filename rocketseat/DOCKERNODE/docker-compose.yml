@@ -1,0 +1,18 @@
+#versão do compose
+version: "3"
+
+#definindo os serviços da aplicação
+
+services:
+  app:
+    # dizer onde se encontra o arquivo docker file ou o container
+    build: .
+    #comando que sera rodado
+    command: npm start
+    #redirecionamento de portas
+    ports:
+      - "3000:3000"
+    #qual pasta eu quero refleti as alterações
+    volumes:
+      #pasta atual para app que eh a que eu defini como diretorio de trabalho la no docker file
+      - .:/usr/app

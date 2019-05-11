@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import mongoose from 'mongoose'
+import routes from './routes'
 
 class App {
     public express: express.Application
@@ -23,10 +24,8 @@ class App {
       })
     }
 
-    private routes () {
-      this.express.get('/', (req, res) => {
-        return res.send('Hello world')
-      })
+    private routes (): void {
+      this.express.use(routes)
     }
 }
 

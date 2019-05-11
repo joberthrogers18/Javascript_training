@@ -1,3 +1,5 @@
-const a : number  = 8;
+import app from './app'
 
-console.log(a)
+app.listen(3333, () : void => {
+  console.log('Server is on!')
+})

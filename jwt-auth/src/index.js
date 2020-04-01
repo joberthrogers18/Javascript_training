@@ -40,7 +40,12 @@ app.post('/signin', async function(req, res) {
     return res.json({ error: "Email or user invalid!"});
   }
 
-  return res.json("Login successfully!");
+  const payload = { user: user.name };
+  const options = { expiresIn: '2d', issuer: 'https://scotch.io' };
+  const secret = require('./services/key').tokenKey;
+  const token = jwt.sign(payload, secret, options);
+
+  return res.json({ token });
 });
 
 app.get('/list-user', async function(req, res) {

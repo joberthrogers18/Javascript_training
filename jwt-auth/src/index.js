@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 require('./services/database/db');
 
+const isAuthenticated = require('./services/auth');
+
 const User = require('./model/User');
 
 const app = express();
@@ -54,7 +56,7 @@ app.get('/list-user', async function(req, res) {
   return res.json(users);
 })
 
-app.get('/', (req, res) => res.send('Hello'));
+app.get('/', isAuthenticated, (req, res) => res.send('salve'));
 
 app.get('/secret', auth, (req, res) => {
   res.json({"message": "This is super secret, don't share it!"});

@@ -1,11 +1,53 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 require('./services/database/db');
+
+const User = require('./model/User');
 
 const app = express();
 const PORT = 3333;
 
 const auth = require("./services/auth");
+
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+app.post('/signup', async function(req, res){
+  const { first, email, password } = req.body;
+
+  const user = await User.create({
+    first,
+    email,
+    password
+  });
+
+  return res.json(user);
+});
+
+app.post('/signin', async function(req, res) {
+  const { email, password } = req.body;
+
+  const user = await User.findOne({ email });
+
+  if(!user) {
+    return res.status(403).json({ error: "User not found!"});
+  }
+
+  const isMatch = await bcrypt.compare(password, user.password);
+
+  if(!isMatch){
+    return res.json({ error: "Email or user invalid!"});
+  }
+
+  return res.json("Login successfully!");
+});
+
+app.get('/list-user', async function(req, res) {
+  const users = await User.find();
+
+  return res.json(users);
+})
 
 app.get('/', (req, res) => res.send('Hello'));
 

@@ -1,11 +1,21 @@
 import React, { useState } from 'react';
-import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { 
+  View, 
+  Text, 
+  Image, 
+  TextInput, 
+  TouchableOpacity,
+  AsyncStorage 
+} from 'react-native';
 
 import styles from './styles';
 import Logo from '../../../assets/logo.png';
 import api from '../../service/api';
 
 function Login () {
+
+  const navigation = useNavigation();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -19,8 +29,10 @@ function Login () {
 
     console.log(data);
 
-    const token = await api.post('/signin', data);
-    console.log(token); 
+    const response = await api.post('/signin', data);
+    console.log(response.data.token);
+    await AsyncStorage.setItem('tokeId', response.data.token);
+    navigation.navigate('Functions');
   }
 
   return (

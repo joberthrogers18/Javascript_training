@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
+import { AsyncStorage } from 'react-native';
 
 import Home from './page/Home';
 import Login from './page/Login';
 
 function Routes() {
+
+  const [token, setToken] = useState('');
+
+  useEffect(() => {
+    getToken();
+  }, [token]);
   
+  async function getToken() {
+    const token = await AsyncStorage.getItem('tokeId');
+    setToken(token);  
+  }
+
   const BottomTab = createBottomTabNavigator();
   const StackNav = createStackNavigator();
   
@@ -27,8 +39,12 @@ function Routes() {
           headerShown: false
         }}
       >
-        <StackNav.Screen name="Login" component={Login} />
-        <StackNav.Screen name="Functions" component={AuthRoutes} />
+        { token ? (
+          <StackNav.Screen name="Functions" component={Home} />
+        ) : ( 
+          <StackNav.Screen name="Login" component={Login} />
+        )
+        }
       </StackNav.Navigator>
     </NavigationContainer>
   );

@@ -1,18 +1,35 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 
+import Home from './page/Home';
 import Login from './page/Login';
 
 function Routes() {
-
-  const Tab = createBottomTabNavigator();
+  
+  const BottomTab = createBottomTabNavigator();
+  const StackNav = createStackNavigator();
+  
+  const AuthRoutes = () => {
+    <>
+      <BottomTab.Navigator>
+        <BottomTab.Screen name="Home" component={Home} />
+      </BottomTab.Navigator>
+    </>
+  }
 
   return (
     <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Login" component={Login} />
-      </Tab.Navigator>
+      <StackNav.Navigator
+        initialRouteName="Login"
+        screenOptions={{
+          headerShown: false
+        }}
+      >
+        <StackNav.Screen name="Login" component={Login} />
+        <StackNav.Screen name="Functions" component={AuthRoutes} />
+      </StackNav.Navigator>
     </NavigationContainer>
   );
 }

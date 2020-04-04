@@ -30,6 +30,7 @@ export default StyleSheet.create({
     borderRadius: 20,
     paddingHorizontal: 10,
     fontWeight: 'bold',
+    color: '#FFF'
   },
   
   inputLabel: {

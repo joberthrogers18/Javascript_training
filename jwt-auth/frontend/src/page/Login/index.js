@@ -31,8 +31,10 @@ function Login () {
 
     const response = await api.post('/signin', data);
     console.log(response.data.token);
-    await AsyncStorage.setItem('tokeId', response.data.token);
-    navigation.navigate('Functions');
+    await AsyncStorage.setItem('tokenId', response.data.token);
+    setTimeout(() => {
+      navigation.navigate('Functions', { screen: 'Home' });
+    }, 2000);
   }
 
   return (

@@ -21,6 +21,6 @@
     "desafio1": "babel ./desafio1/desafio1.js -o ./desafio1/bundle.js -w"
   },
   "dependencies": {
-    "axios": "^0.18.0"
+    "axios": "^0.21.1"
   }
 }

@@ -27,7 +27,7 @@
     "cors": "^2.8.5",
     "eslint-config-prettier": "^4.2.0",
     "eslint-plugin-prettier": "^3.0.1",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "mongoose": "^5.5.7",
     "prettier": "^1.17.0"
   }
